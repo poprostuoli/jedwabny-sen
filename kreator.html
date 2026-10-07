@@ -1,0 +1,275 @@
+<!DOCTYPE html> 
+<html lang="pl-PL"> 
+    <head> 
+       <meta charset="UTF-8" /> 
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+           <title>Poduszki</title> 
+    </head>
+    <body>
+    <link rel="stylesheet" type="text/css" href="style67.css">
+<section class="custom-pillow">
+    <div class="container">
+    
+        <h1>Stwórz własną poduszkę</h1>
+        <p>Daj swój nadruk i zaprojektuj poduszkę.</p>
+
+        <div class="designer">
+
+            <div class="upload-box">
+                <h2>1. Dodaj swój nadruk</h2>
+
+                <label for="imageUpload" class="upload-btn">
+                    Wybierz zdjęcie
+                </label>
+
+                <input type="file" id="imageUpload" accept="image/*">
+
+                <p>
+                    Obsługiwane formaty: JPG, PNG
+                </p>
+
+                <p class="custom-price">Cena poduszki: <strong>49,99 zł</strong></p>
+
+                <button class="buy-btn" id="addCustomPillow" type="button" disabled>
+                    Dodaj do koszyka · 49,99 zł
+                </button>
+                <p id="uploadStatus" class="cart-status" role="status">Wybierz zdjęcie, aby dodać projekt.</p>
+            </div>
+
+
+            <div class="preview-box">
+                <h2>2. Podgląd poduszki</h2>
+
+                <div class="pillow">
+                    <img class="pillow-photo" src="poduszka.png" alt="Biała poduszka do personalizacji">
+                    <img id="designImage" src="" alt="Twój nadruk">
+                </div>
+
+            </div>
+
+        </div>
+
+        <section class="custom-cart" aria-labelledby="cartTitle">
+            <div class="cart-heading">
+                <h2 id="cartTitle">Twój koszyk</h2>
+                <span id="cartCount">0 produktów</span>
+            </div>
+            <p id="cartEmpty" class="cart-empty">Koszyk jest pusty.</p>
+            <ul id="cartItems" class="custom-cart-list"></ul>
+            <div class="cart-summary">
+                <strong>Razem</strong>
+                <strong id="cartTotal">0,00 zł</strong>
+            </div>
+            <button class="clear-cart" id="clearCart" type="button" disabled>Wyczyść koszyk</button>
+            <p id="cartStatus" class="cart-status" role="status" aria-live="polite"></p>
+        </section>
+
+    </div>
+</section>
+	<footer>
+		<div class="shell">
+			<div class="footer-row">
+				<div><a class="logo" href="strona_glowna.html">Jedwabny <span>Sen</span></a><p>Poduszki dla spokojniejszego jutra.</p></div>
+				<div class="footer-links"><a href="#o-nas">O nas</a><a href="sklep.html">Sklep</a><a href="mailto:oliwier.podkanowicz@klucznet.zslt.pl">Kontakt</a></div>
+			</div>
+			<div class="copyright">© 2026 Jedwabny Sen. Wszystko dla dobrego snu.</div>
+		</div>
+	</footer>
+
+
+    <script>
+const upload = document.getElementById("imageUpload");
+const image = document.getElementById("designImage");
+const pillowPhoto = document.querySelector(".pillow-photo");
+const addButton = document.getElementById("addCustomPillow");
+const uploadStatus = document.getElementById("uploadStatus");
+const cartItemsElement = document.getElementById("cartItems");
+const cartCountElement = document.getElementById("cartCount");
+const cartTotalElement = document.getElementById("cartTotal");
+const cartEmptyElement = document.getElementById("cartEmpty");
+const clearCartButton = document.getElementById("clearCart");
+const cartStatus = document.getElementById("cartStatus");
+const cartStorageKey = "jedwabnySenCustomPillowCart";
+const pillowPrice = 49.99;
+const currency = new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN" });
+let designDataUrl = "";
+
+function loadCart() {
+    try {
+        const savedCart = JSON.parse(localStorage.getItem(cartStorageKey) || "[]");
+        return Array.isArray(savedCart) ? savedCart : [];
+    } catch {
+        return [];
+    }
+}
+
+let cart = loadCart();
+
+function saveCart() {
+    try {
+        localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+        return true;
+    } catch {
+        cartStatus.textContent = "Nie udało się zapisać koszyka. Usuń część pozycji i spróbuj ponownie.";
+        return false;
+    }
+}
+
+function renderCart() {
+    cartItemsElement.replaceChildren();
+    cartEmptyElement.hidden = cart.length > 0;
+    clearCartButton.disabled = cart.length === 0;
+    const lastDigit = cart.length % 10;
+    const lastTwoDigits = cart.length % 100;
+    const productWord = cart.length === 1
+        ? "produkt"
+        : lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 12 || lastTwoDigits > 14)
+            ? "produkty"
+            : "produktów";
+    cartCountElement.textContent = `${cart.length} ${productWord}`;
+    cartTotalElement.textContent = currency.format(cart.reduce((sum, item) => sum + item.price, 0));
+
+    for (const item of cart) {
+        const row = document.createElement("li");
+        row.className = "custom-cart-item";
+
+        const thumbnail = document.createElement("img");
+        thumbnail.src = item.preview;
+        thumbnail.alt = "Projekt poduszki";
+
+        const details = document.createElement("div");
+        details.className = "custom-cart-details";
+
+        const name = document.createElement("strong");
+        name.textContent = item.name;
+
+        const price = document.createElement("span");
+        price.textContent = currency.format(item.price);
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "remove-cart-item";
+        removeButton.type = "button";
+        removeButton.textContent = "Usuń";
+        removeButton.setAttribute("aria-label", `Usuń ${item.name} z koszyka`);
+        removeButton.addEventListener("click", () => {
+            cart = cart.filter((cartItem) => cartItem.id !== item.id);
+            if (saveCart()) {
+                cartStatus.textContent = "Usunięto projekt z koszyka.";
+                renderCart();
+            }
+        });
+
+        details.append(name, price);
+        row.append(thumbnail, details, removeButton);
+        cartItemsElement.append(row);
+    }
+}
+
+function loadImage(source) {
+    return new Promise((resolve, reject) => {
+        const loadedImage = new Image();
+        loadedImage.onload = () => resolve(loadedImage);
+        loadedImage.onerror = reject;
+        loadedImage.src = source;
+    });
+}
+
+async function createPillowPreview() {
+    const canvas = document.createElement("canvas");
+    canvas.width = 900;
+    canvas.height = 600;
+    const context = canvas.getContext("2d");
+    const [base, design] = await Promise.all([
+        pillowPhoto.complete && pillowPhoto.naturalWidth ? pillowPhoto : loadImage(pillowPhoto.src),
+        loadImage(designDataUrl)
+    ]);
+
+    const scale = Math.max(canvas.width / base.naturalWidth, canvas.height / base.naturalHeight);
+    const backgroundWidth = base.naturalWidth * scale;
+    const backgroundHeight = base.naturalHeight * scale;
+    context.drawImage(base, (canvas.width - backgroundWidth) / 2, (canvas.height - backgroundHeight) / 2, backgroundWidth, backgroundHeight);
+
+    const designWidth = canvas.width * 0.39;
+    const designHeight = canvas.height * 0.48;
+    const designScale = Math.min(designWidth / design.naturalWidth, designHeight / design.naturalHeight);
+    const renderedWidth = design.naturalWidth * designScale;
+    const renderedHeight = design.naturalHeight * designScale;
+
+    context.save();
+    context.translate(canvas.width / 2, canvas.height / 2);
+    context.rotate(-Math.PI / 180);
+    context.globalCompositeOperation = "multiply";
+    context.globalAlpha = 0.88;
+    context.drawImage(design, -renderedWidth / 2, -renderedHeight / 2, renderedWidth, renderedHeight);
+    context.restore();
+
+    return canvas.toDataURL("image/jpeg", 0.82);
+}
+
+upload.addEventListener("change", function(){
+    const file = this.files[0];
+
+    if(file && file.type.startsWith("image/")){
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+            designDataUrl = e.target.result;
+            image.src = designDataUrl;
+            addButton.disabled = false;
+            uploadStatus.textContent = "Zdjęcie gotowe do dodania.";
+        }
+
+        reader.onerror = function(){
+            uploadStatus.textContent = "Nie udało się odczytać zdjęcia. Spróbuj wybrać je ponownie.";
+        }
+
+        reader.readAsDataURL(file);
+    } else if (file) {
+        uploadStatus.textContent = "Wybierz plik graficzny.";
+    }
+});
+
+addButton.addEventListener("click", async () => {
+    if (!designDataUrl) {
+        uploadStatus.textContent = "Najpierw wybierz zdjęcie nadruku.";
+        return;
+    }
+
+    addButton.disabled = true;
+    cartStatus.textContent = "Zapisywanie projektu...";
+
+    try {
+        const preview = await createPillowPreview();
+        cart.push({
+            id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+            name: "Poduszka z własnym nadrukiem",
+            price: pillowPrice,
+            preview
+        });
+
+        if (saveCart()) {
+            renderCart();
+            cartStatus.textContent = "Projekt dodano do koszyka.";
+        } else {
+            cart.pop();
+        }
+    } catch {
+        cartStatus.textContent = "Nie udało się przygotować podglądu. Sprawdź wybrane zdjęcie i spróbuj ponownie.";
+    } finally {
+        addButton.disabled = false;
+    }
+});
+
+clearCartButton.addEventListener("click", () => {
+    cart = [];
+    if (saveCart()) {
+        cartStatus.textContent = "Koszyk został wyczyszczony.";
+        renderCart();
+    }
+});
+
+renderCart();
+    </script>
+</body>
+</html>
+

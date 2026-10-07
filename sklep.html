@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="PL-pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Jedwabny Sen | Sklep z poduszkami</title>
+	<link rel="stylesheet" type="text/css" href="styl_sklep.css">
+</head>
+<body>
+    <main>
+        <header>
+			<div class="header-content">
+				<a class="brand-mark" href="strona_glowna.html">Jedwabny <span>Sen</span></a>
+				<form class="product-search" id="product-search" role="search">
+					<label for="product-query">Szukaj produktów</label>
+					<input id="product-query" name="query" type="search" placeholder="Np. poduszka" autocomplete="off">
+					<button type="submit">Szukaj</button>
+				</form>
+				<div class="cart-wrapper">
+					<button class="cart-button" id="cart-button" type="button" aria-expanded="false"><img class="cart-image" src="zdjęcia/koszyk1.png" alt="Koszyk">(<span id="cart-count">0</span>)</button>
+					<div class="cart-panel" id="cart-panel">
+						<h2>Twój koszyk</h2>
+						<ul class="cart-list" id="cart-list"><li>Koszyk jest pusty.</li></ul>
+						<strong class="cart-total" id="cart-total">Razem: 0,00 zl</strong>
+						<div class="cart-actions">
+							<button class="clear-cart" id="clear-cart" type="button">Wyczyść koszyk</button>
+						</div>
+						<button class="pay-button" id="pay-button" type="button">Zapłać</button>
+						<div class="payment-options" id="payment-options">
+							<strong>Wybierz sposób płatności:</strong>
+							<label><input type="radio" name="payment" value="card"> Karta płatnicza</label>
+							<label><input type="radio" name="payment" value="transfer"> Blik</label>
+							<label><input type="radio" name="payment" value="cash"> Płatność przy odbiorze</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p id="search-result" aria-live="polite"></p>
+		</header>
+    	<nav>
+			<table class="tabela">
+				<tr>
+					<td><a href="strona_glowna.html">Strona główna</a></td>
+					<td><a href="sklep.html">Sklep</a></td>
+					<td><a href="kreator.html">Zrób swoją poduszkę</a></td>
+				</tr>
+			</table>
+		</nav>
+	    <div class="content">
+			<div class="collection-label">KOLEKCJA PODUSZEK</div>
+			<section data-product="Podróżna U">
+				<img class="product-image" src="zdjęcia/U-shape.jpg" alt="Poduszka w kształcie U">
+				<div class="product-info"><h2>Podróżna U</h2><div class="product-rating" aria-label="5 na 5 gwiazdek">★★★★★</div></div>
+				<div class="product-purchase"><span class="product-price">49,99 zl</span><button class="add-to-cart" type="button">Dodaj do koszyka</button></div>
+			</section>
+			<section data-product="Wełniana przyjemność">
+				<img class="product-image" src="zdjęcia/PureWPillow.jpg" alt="Poduszka na łóżko sama wełna">
+				<div class="product-info"><h2>Wełniana przyjemność</h2><div class="product-rating" aria-label="4 na 5 gwiazdek">★★★★★</div></div>
+				<div class="product-purchase"><span class="product-price">59,99 zl</span><button class="add-to-cart" type="button">Dodaj do koszyka</button></div>
+			</section>
+			<section data-product="Ortopedyczna">
+				<img class="product-image" src="zdjęcia/OrtopedicPillow.jpg" alt="Poduszka ortopedyczna">
+				<div class="product-info"><h2>Ortopedyczna</h2><div class="product-rating" aria-label="5 na 5 gwiazdek">★★★★★</div></div>
+				<div class="product-purchase"><span class="product-price">89,99 zl</span><button class="add-to-cart" type="button">Dodaj do koszyka</button></div>
+			</section>
+			<section data-product="Klasyk">
+				<img class="product-image" src="zdjęcia/NormalPillow.jpg" alt="Biała poduszka kanapowa">
+				<div class="product-info"><h2>Klasyk</h2><div class="product-rating" aria-label="3 na 5 gwiazdek">★★★★☆</div></div>
+				<div class="product-purchase"><span class="product-price">49,99 zl</span><button class="add-to-cart" type="button">Dodaj do koszyka</button></div>
+			</section>
+			<section data-product="Piankowy Sen">
+				<img class="product-image" src="zdjęcia/FoamPillow.jpg" alt="Poduszka piankowa">
+				<div class="product-info"><h2>Piankowy Sen</h2><div class="product-rating" aria-label="4 na 5 gwiazdek">★★★★☆</div></div>
+				<div class="product-purchase"><span class="product-price">89,99 zl</span><button class="add-to-cart" type="button">Dodaj do koszyka</button></div>
+			</section>
+			<section data-product="Poduszka samochodowa">
+				<img class="product-image" src="zdjęcia/CarPillow.jpg" alt="Poduszka samochodowa">
+				<div class="product-info"><h2>Poduszka samochodowa</h2><div class="product-rating" aria-label="4 na 5 gwiazdek">★★★★☆</div></div>
+				<div class="product-purchase"><span class="product-price">34,99 zl</span><button class="add-to-cart" type="button">Dodaj do koszyka</button></div>
+			</section>
+			<section data-product="Campingowa">
+				<img class="product-image" src="zdjęcia/CampPillow.jpg" alt="Campingowa poduszka">
+				<div class="product-info"><h2>Campingowa</h2><div class="product-rating" aria-label="5 na 5 gwiazdek">★★★★★</div></div>
+				<div class="product-purchase"><span class="product-price">39,99 zl</span><button class="add-to-cart" type="button">Dodaj do koszyka</button></div>
+			</section>
+			<section data-product="Niebieska poduszka z frędzelkami">
+				<img class="product-image" src="zdjęcia/BlueWithThisThings.jpg" alt="Niebieska poduszka z frędzelkami">
+				<div class="product-info"><h2>Niebieska poduszka z frędzelkami</h2><div class="product-rating" aria-label="5 na 5 gwiazdek">★★★★★</div></div>
+				<div class="product-purchase"><span class="product-price">59,99 zl</span><button class="add-to-cart" type="button">Dodaj do koszyka</button></div>
+			</section>
+		</div>
+		<footer aria-label="Stopka strony"><a class="footer-brand" href="strona_glowna.html">Jedwabny <span>Sen</span></a><p class="footer-tagline">Poduszki dla spokojniejszego jutra. &nbsp;|&nbsp; © 2026</p></footer>
+    </main>
+	<script>
+		const searchForm = document.querySelector('#product-search');
+		const searchInput = document.querySelector('#product-query');
+		const searchResult = document.querySelector('#search-result');
+		const products = document.querySelectorAll('[data-product]');
+		const cartButton = document.querySelector('#cart-button');
+		const cartPanel = document.querySelector('#cart-panel');
+		const cartList = document.querySelector('#cart-list');
+		const cartCount = document.querySelector('#cart-count');
+		const cartTotal = document.querySelector('#cart-total');
+		const clearCartButton = document.querySelector('#clear-cart');
+		const payButton = document.querySelector('#pay-button');
+		const paymentOptions = document.querySelector('#payment-options');
+		const cart = [];
+
+		const updateCart = () => {
+			cartList.innerHTML = '';
+			let total = 0;
+
+			if (!cart.length) {
+				cartList.innerHTML = '<li>Koszyk jest pusty.</li>';
+			} else {
+				cart.forEach((item, itemIndex) => {
+					const listItem = document.createElement('li');
+					listItem.className = 'cart-item';
+					listItem.innerHTML = `<span>${item.name} x ${item.quantity}</span><strong>${(item.price * item.quantity).toFixed(2).replace('.', ',')} zl</strong><button class="remove-item" type="button" data-index="${itemIndex}">Usuń</button>`;
+					cartList.appendChild(listItem);
+					total += item.price * item.quantity;
+				});
+			}
+
+			cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+			cartTotal.textContent = `Razem: ${total.toFixed(2).replace('.', ',')} zl`;
+		};
+
+		cartList.addEventListener('click', (event) => {
+			const removeButton = event.target.closest('.remove-item');
+			if (!removeButton) return;
+
+			cart.splice(Number(removeButton.dataset.index), 1);
+			updateCart();
+		});
+
+		clearCartButton.addEventListener('click', () => {
+			cart.length = 0;
+			paymentOptions.classList.remove('is-open');
+			updateCart();
+		});
+
+		products.forEach((product) => {
+			product.querySelector('.add-to-cart').addEventListener('click', () => {
+				const name = product.querySelector('h2').textContent;
+				const price = Number(product.querySelector('.product-price').textContent.replace(',', '.').replace(' zl', ''));
+				const existingItem = cart.find((item) => item.name === name);
+
+				if (existingItem) {
+					existingItem.quantity += 1;
+				} else {
+					cart.push({ name, price, quantity: 1 });
+				}
+				updateCart();
+				cartPanel.classList.add('is-open');
+				cartButton.setAttribute('aria-expanded', 'true');
+			});
+		});
+
+		cartButton.addEventListener('click', () => {
+			const isOpen = cartPanel.classList.toggle('is-open');
+			cartButton.setAttribute('aria-expanded', String(isOpen));
+		});
+
+		payButton.addEventListener('click', () => {
+			paymentOptions.classList.toggle('is-open');
+		});
+
+		const searchProducts = () => {
+			const query = searchInput.value.trim().toLowerCase();
+
+			if (!query) {
+				searchResult.textContent = 'Wpisz nazwę produktu, aby rozpocząć wyszukiwanie.';
+				products.forEach((product) => product.classList.remove('product-match'));
+				return;
+			}
+
+			let matches = 0;
+			let firstMatch;
+			products.forEach((product) => {
+				const isMatch = product.textContent.toLowerCase().includes(query);
+				product.classList.toggle('product-match', isMatch);
+				if (isMatch && !firstMatch) firstMatch = product;
+				if (isMatch) matches += 1;
+			});
+
+			if (firstMatch) {
+				firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			}
+
+			searchResult.textContent = products.length
+				? `Znaleziono produktów: ${matches}.`
+				: `Wyszukiwanie dla „${searchInput.value}” jest gotowe.`;
+		};
+
+		searchForm.addEventListener('submit', (event) => {
+			event.preventDefault();
+			searchProducts();
+		});
+	</script>
+</body>
+</html>
